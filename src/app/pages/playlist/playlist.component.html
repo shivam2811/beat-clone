@@ -1,0 +1,75 @@
+
+<div id="preloder" *ngIf="preloder">
+  <div class="loader"></div>
+</div>
+<app-header></app-header>
+<section class="playlist-section spad">
+    <div class="container-fluid">
+        <div class="section-title">
+            <h2>Playlists</h2>
+        </div>
+        <div class="container">
+          <label for="category">Category:</label>
+          <select id="category" [(ngModel)]="activeCategory" (change)="setCategoryFilter(activeCategory)">
+            <option value="all">All</option>
+            <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+          </select>
+        
+          <label for="genre">Genre:</label>
+          <select id="genre" [(ngModel)]="activeGenre" (change)="setGenreFilter(activeGenre)">
+            <option value="all">All</option>
+            <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+          </select>
+        
+          <label for="mood">Mood:</label>
+          <select id="mood" [(ngModel)]="activeMood" (change)="setMoodFilter(activeMood)">
+            <option value="all">All</option>
+            <option *ngFor="let mood of moods" [value]="mood">{{ mood }}</option>
+          </select>
+        </div>                                          
+        <div class="clearfix"></div>
+        <div class="playlist-area">
+            <div *ngFor="let playlist of filteredPlaylists" class="mix  genres">
+                <div class="playlist-item">
+                 
+            <div class="row">
+              <div class="card-detail col-lg-3 col-md-4 col-sm-6 p-4" *ngFor="let beat of playlist.beats">
+                <a *ngIf="beat && beat._id" [routerLink]="['/artist', beat._id]" class="text-decoration-none text-dark">
+                  <div class=" h-100">
+                    <img [src]="beat.cover_picture || 'assets/img/playlist/default.jpg'" class="card-img-top" alt="{{ beat.title }}">
+                    <div class="card-body">
+                      <p class="card-title">{{ beat.title }}</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+                </div>
+                </div>
+              </div>
+        </div>
+    </div>
+</section>  
+  <section class="help-section spad pt-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="section-title mb-0 pb-4">
+            <h2>Need Help to find music?</h2>
+          </div>
+          <p>
+            Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Quis ipsum suspendisse ultrices gravida.
+          </p>
+        </div>
+        <div class="col-lg-6">
+          <div class="d-flex h-100 align-items-end">
+            <form class="search-form">
+              <input type="text" placeholder="Hit it">
+              <button>Search</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<app-footer></app-footer>

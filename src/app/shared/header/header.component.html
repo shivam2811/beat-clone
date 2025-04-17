@@ -1,0 +1,19 @@
+<header class="header-section clearfix">
+    <a href="index.html" class="site-logo">
+        <img src="../../../assets/img/logo.png" alt="">
+    </a>
+    <div class="header-right">
+
+    </div>
+    <ul class="main-menu">
+        <li><a href="">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#">Pages</a>
+            <ul class="sub-menu">
+                <li><a [routerLink]="['/playlist']">Playlist</a></li>
+                <li><a [routerLink]="['/contact']">Contact</a></li>
+            </ul>
+        </li>
+        <li><a [routerLink]="['/contact']">Contact</a></li>
+    </ul>
+</header>
