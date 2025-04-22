@@ -31,20 +31,20 @@ export class ArtistComponent {
 
   fetchBeatData(beatId: string): void {
     this.preloder = true; // Show the preloader before fetching data
-    const apiUrl = `https://api-server.illpeoplemusic.com/api/v2/playlist/trending`;
-  
+    const apiUrl = `/api/v2/playlist/trending`;
+
     this.http.get<any>(apiUrl).subscribe({
       next: (res) => {
         const playlist = res.playlists?.[0];
         const beats = playlist?.beats || [];
-  
+
         const foundBeat = beats.find((b: any) => b._id === beatId);
-  
+
         if (foundBeat) {
           this.beat = foundBeat;
           this.artist = playlist.authorName;
           this.updatedAt = new Date(playlist.updatedAt || Date.now());
-  
+
           // Autoplay after small delay (audio load)
           setTimeout(() => {
             this.audioElement?.nativeElement?.play().catch(err => {
@@ -60,7 +60,7 @@ export class ArtistComponent {
       },
     });
   }
-  
+
 
   togglePlayPause(audio: HTMLAudioElement): void {
     if (this.isPlaying) {
@@ -68,13 +68,13 @@ export class ArtistComponent {
     } else {
       audio.play();
     }
-  
+
     this.isPlaying = !this.isPlaying;
-  
+
     // optional: handle when audio ends
     audio.onended = () => {
       this.isPlaying = false;
     };
   }
-  
+
 }

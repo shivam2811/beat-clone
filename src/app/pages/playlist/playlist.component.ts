@@ -16,11 +16,11 @@ export class PlaylistComponent {
   categories: string[] = [];
   genres: string[] = [];
   moods: string[] = [];
-  
+
   activeCategory: string = 'all';
   activeGenre: string = 'all';
   activeMood: string = 'all';
-  
+
   playlists: any[] = [];
   filteredPlaylists: any[] = [];
   activeFilter: string | undefined;
@@ -35,8 +35,8 @@ export class PlaylistComponent {
 
   fetchPlaylists() {
     this.preloder = true; // Show loader before API call
-  
-    this.http.get<any>('https://api-server.illpeoplemusic.com/api/v2/playlist/trending')
+
+    this.http.get<any>('/api/v2/playlist/trending')
       .subscribe({
         next: (response) => {
           this.playlists = response.playlists;
@@ -50,12 +50,12 @@ export class PlaylistComponent {
         }
       });
   }
-  
+
   extractFilters(playlists: any[]) {
     const categoriesSet = new Set<string>();
     const genresSet = new Set<string>();
     const moodsSet = new Set<string>();
-  
+
     playlists.forEach(playlist => {
       playlist.beats.forEach((beat: any) => {
         if (beat.category) categoriesSet.add(beat.category);
@@ -63,17 +63,17 @@ export class PlaylistComponent {
         if (Array.isArray(beat.mood)) beat.mood.forEach((m: string) => moodsSet.add(m));
       });
     });
-  
+
     this.categories = Array.from(categoriesSet);
     this.genres = Array.from(genresSet);
     this.moods = Array.from(moodsSet);
   }
-  
+
 
   setFilter(filter: string) {
     this.preloder = true; // Show the preloader before applying filter
     this.activeFilter = filter;
-  
+
     if (filter === 'all') {
       this.filteredPlaylists = this.playlists;
       this.preloder = false; // Hide the preloader after applying filter
@@ -94,17 +94,17 @@ export class PlaylistComponent {
     this.activeCategory = filter;
     this.applyFilters();
   }
-  
+
   setGenreFilter(filter: string) {
     this.activeGenre = filter;
     this.applyFilters();
   }
-  
+
   setMoodFilter(filter: string) {
     this.activeMood = filter;
     this.applyFilters();
   }
-  
+
   applyFilters() {
     this.filteredPlaylists = this.playlists.filter(playlist =>
       playlist.beats.some((beat: any) =>
