@@ -31,7 +31,7 @@ export class ArtistComponent {
 
   fetchBeatData(beatId: string): void {
     this.preloder = true; // Show the preloader before fetching data
-    const apiUrl = `https://api-server.illpeoplemusic.com/api/v2/playlist/trending`;
+    const apiUrl = `/api/v2/playlist/trending`; // ✅ Use proxy path here
   
     this.http.get<any>(apiUrl).subscribe({
       next: (res) => {
@@ -52,6 +52,7 @@ export class ArtistComponent {
             });
           }, 300);
         }
+  
         this.preloder = false; // Hide the preloader after fetching data
       },
       error: (err) => {

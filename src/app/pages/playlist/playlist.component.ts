@@ -36,7 +36,8 @@ export class PlaylistComponent {
   fetchPlaylists() {
     this.preloder = true; // Show loader before API call
   
-    this.http.get<any>('https://api-server.illpeoplemusic.com/api/v2/playlist/trending')
+    // Use the proxy path '/api' instead of the full API URL
+    this.http.get<any>('/api/v2/playlist/trending')
       .subscribe({
         next: (response) => {
           this.playlists = response.playlists;
